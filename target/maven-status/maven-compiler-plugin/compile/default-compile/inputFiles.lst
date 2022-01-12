@@ -1,4 +1,7 @@
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/App.java
+/Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/auth/User.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/controller/EmployeeRESTController.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/dao/EmployeeDB.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/representations/Employee.java
+/Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/auth/AppAuthorizer.java
+/Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/auth/AppBasicAuthenticator.java

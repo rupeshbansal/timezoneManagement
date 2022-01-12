@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Set;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.ws.rs.DELETE;
@@ -18,8 +20,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.toptalpremierleague.rest.auth.User;
 import com.toptalpremierleague.rest.dao.EmployeeDB;
 import com.toptalpremierleague.rest.representations.Employee;
+import io.dropwizard.auth.Auth;
 
 @Path("/employees")
 @Produces(MediaType.APPLICATION_JSON)
@@ -31,14 +35,21 @@ public class EmployeeRESTController {
         this.validator = validator;
     }
 
+//    @GET
+//    public Response getEmployees() {
+//        return Response.ok(EmployeeDB.getEmployees()).build();
+//    }
+
+    @PermitAll
     @GET
-    public Response getEmployees() {
+    public Response getEmployees(@Auth User user) {
         return Response.ok(EmployeeDB.getEmployees()).build();
     }
 
+    @RolesAllowed({ "ADMIN" })
     @GET
     @Path("/{id}")
-    public Response getEmployeeById(@PathParam("id") Integer id) {
+    public Response getEmployeeById(@PathParam("id") Integer id, @Auth User user) {
         Employee employee = EmployeeDB.getEmployee(id);
         if (employee != null)
             return Response.ok(employee).build();

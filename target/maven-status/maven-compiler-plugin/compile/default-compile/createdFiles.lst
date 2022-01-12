@@ -1,4 +1,7 @@
+com/toptalpremierleague/rest/auth/AppBasicAuthenticator.class
 com/toptalpremierleague/rest/App.class
+com/toptalpremierleague/rest/dao/EmployeeDB.class
+com/toptalpremierleague/rest/auth/User.class
 com/toptalpremierleague/rest/controller/EmployeeRESTController.class
 com/toptalpremierleague/rest/representations/Employee.class
-com/toptalpremierleague/rest/dao/EmployeeDB.class
+com/toptalpremierleague/rest/auth/AppAuthorizer.class

@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-public class Employee {
+public class User {
 
     @NotNull
     private Integer id;
@@ -17,10 +17,10 @@ public class Employee {
     @Pattern(regexp=".+@.+\\.[a-z]+")
     private String email;
 
-    public Employee(){
+    public User(){
     }
 
-    public Employee(Integer id, String firstName, String lastName, String email) {
+    public User(Integer id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

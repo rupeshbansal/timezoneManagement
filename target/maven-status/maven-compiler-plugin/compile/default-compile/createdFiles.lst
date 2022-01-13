@@ -1,7 +1,11 @@
 com/toptalpremierleague/rest/auth/AppBasicAuthenticator.class
 com/toptalpremierleague/rest/App.class
-com/toptalpremierleague/rest/dao/EmployeeDB.class
-com/toptalpremierleague/rest/auth/User.class
-com/toptalpremierleague/rest/controller/EmployeeRESTController.class
-com/toptalpremierleague/rest/representations/Employee.class
+com/toptalpremierleague/rest/dao/UserDB.class
+com/toptalpremierleague/rest/representations/UserTimezone.class
+com/toptalpremierleague/rest/auth/AppUser.class
+com/toptalpremierleague/rest/representations/User.class
+com/toptalpremierleague/rest/dao/UserTimezoneDb.class
+com/toptalpremierleague/rest/representations/UserTimezoneId.class
 com/toptalpremierleague/rest/auth/AppAuthorizer.class
+com/toptalpremierleague/rest/HelloWorldConfiguration.class
+com/toptalpremierleague/rest/controller/UserRestController.class

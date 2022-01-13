@@ -16,15 +16,15 @@ import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class App extends Application<Configuration> {
+public class App extends Application<HelloWorldConfiguration> {
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
     @Override
-    public void initialize(Bootstrap<Configuration> b) {
+    public void initialize(Bootstrap<HelloWorldConfiguration> b) {
     }
 
     @Override
-    public void run(Configuration c, Environment e) throws Exception {
+    public void run(HelloWorldConfiguration c, Environment e) throws Exception {
         e.jersey().register(new UserRestController(e.getValidator()));
 
 //        final Client client = new JerseyClientBuilder(e).build("DemoRESTClient");

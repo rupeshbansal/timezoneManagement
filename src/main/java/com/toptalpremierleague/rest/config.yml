@@ -1,7 +1,0 @@
-#Server configuration.
-#server:
-#  applicationConnectors:
-#    - type: http
-#      port: 8085
-host: test
-port: test2

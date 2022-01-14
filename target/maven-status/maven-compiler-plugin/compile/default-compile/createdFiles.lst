@@ -4,6 +4,7 @@ com/toptalpremierleague/rest/dao/UserDB.class
 com/toptalpremierleague/rest/representations/UserTimezone.class
 com/toptalpremierleague/rest/auth/AppUser.class
 com/toptalpremierleague/rest/representations/User.class
+com/toptalpremierleague/rest/dao/UserDAO.class
 com/toptalpremierleague/rest/dao/UserTimezoneDb.class
 com/toptalpremierleague/rest/representations/UserTimezoneId.class
 com/toptalpremierleague/rest/auth/AppAuthorizer.class

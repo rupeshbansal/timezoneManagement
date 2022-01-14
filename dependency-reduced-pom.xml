@@ -39,7 +39,7 @@
   </build>
   <properties>
     <maven.compiler.target>16</maven.compiler.target>
-    <dropwizard.version>1.0.0</dropwizard.version>
+    <dropwizard.version>2.0.0</dropwizard.version>
     <maven.compiler.source>16</maven.compiler.source>
   </properties>
 </project>

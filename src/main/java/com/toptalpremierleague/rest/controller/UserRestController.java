@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response.Status;
 
 import com.google.common.collect.ImmutableSet;
 import com.toptalpremierleague.rest.auth.AppUser;
+import com.toptalpremierleague.rest.dao.UserDAO;
 import com.toptalpremierleague.rest.dao.UserDB;
 import com.toptalpremierleague.rest.dao.UserTimezoneDb;
 import com.toptalpremierleague.rest.representations.User;
@@ -33,9 +34,11 @@ import io.dropwizard.auth.Auth;
 public class UserRestController {
 
     private final Validator validator;
+    private final UserDAO userDAO;
 
-    public UserRestController(Validator validator) {
+    public UserRestController(Validator validator, UserDAO userDAO) {
         this.validator = validator;
+        this.userDAO = userDAO;
     }
 
 //    @GET
@@ -49,15 +52,17 @@ public class UserRestController {
         return Response.ok(UserDB.getUsers()).build();
     }
 
-    @RolesAllowed({ "ADMIN" })
+    @RolesAllowed({"ADMIN"})
     @GET
     @Path("/{id}")
     public Response getUserById(@PathParam("id") Integer id, @Auth AppUser appUser) {
-        User user = UserDB.getUser(id);
-        if (user != null)
-            return Response.ok(user).build();
-        else
-            return Response.status(Status.NOT_FOUND).build();
+//        User user = UserDB.getUser(id);
+//        userDAO.createSomethingTable();
+        userDAO.insert(id, "some random string");
+//        if (user != null)
+        return Response.ok(userDAO.findNameById(2)).build();
+//        else
+//            return Response.status(Status.NOT_FOUND).build();
     }
 
     @POST
@@ -109,7 +114,7 @@ public class UserRestController {
         if (existingTimezoneIds.contains(timezoneId)) {
             String validationMessage = "Timezone already associated";
             return Response.status(Status.BAD_REQUEST).entity(validationMessage).build();
-        } else if(!UserTimezone.getAllTimezoneIds().contains(timezoneId)) {
+        } else if (!UserTimezone.getAllTimezoneIds().contains(timezoneId)) {
             String validationMessage = "Invalid timezone id";
             return Response.status(Status.BAD_REQUEST).entity(validationMessage).build();
         }

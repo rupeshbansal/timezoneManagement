@@ -8,6 +8,7 @@ import com.toptalpremierleague.rest.representations.Timezone;
 import one.util.streamex.EntryStream;
 import one.util.streamex.StreamEx;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +32,9 @@ public final class TimezoneService {
     }
 
     public Set<Timezone> getAllTimezones(String userEmail) {
-        return ImmutableSet.of();
+        Set<Integer> timezoneIds = userTimezoneDao.getUserTimezones(userEmail);
+
+        return timezoneDao.getTimezones(timezoneIds);
     }
 
     public void createTimezone(Timezone timezone, String userEmail) {
@@ -41,14 +44,10 @@ public final class TimezoneService {
 
     public void updateTimezone(Timezone timezone, String userEmail) {
         Set<Integer> userTimezoneIds = userTimezoneDao.getUserTimezones(userEmail);
-        System.out.println("UserEmail " + userEmail);
-        System.out.println("userTimezoneIds " + userTimezoneIds);
-        System.out.println("Timezone ID " + timezone.getId());
         if(!userTimezoneIds.contains(timezone.getId())) {
             throw new RuntimeException("Timezone not found for this user");
         }
         timezoneDao.update(timezone.getId(), timezone.getName(), timezone.getCity(), timezone.getGmt_difference());
-//        userTimezoneDao.insert(userEmail, timezoneId);
     }
 
     public void deleteTimezone(int timezoneId, String userEmail) {

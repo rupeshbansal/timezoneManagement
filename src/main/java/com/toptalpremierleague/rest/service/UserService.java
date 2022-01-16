@@ -8,7 +8,6 @@ import java.util.Set;
 public final class UserService {
     private final UserDao userDao;
 
-
     public UserService(UserDao userDao) {
         this.userDao = userDao;
     }

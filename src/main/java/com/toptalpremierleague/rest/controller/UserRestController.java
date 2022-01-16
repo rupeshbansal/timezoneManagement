@@ -23,28 +23,11 @@ public class UserRestController {
         this.userDAO = userDAO;
     }
 
-//    @GET
-//    public Response getEmployees() {
-//        return Response.ok(EmployeeDB.getEmployees()).build();
-//    }
-
-//    @PermitAll
-//    @GET
-//    public Response getUsers(@Auth AppUser appUser) {
-//        return Response.ok(UserDB.getUsers()).build();
-//    }
-
     @PermitAll
     @GET
     @Path("/{id}")
     public Response getUsersById(@PathParam("id") Integer id, @Auth User user) {
-//        User user = UserDB.getUser(id);
-//        userDAO.createSomethingTable();
-//        userDAO.insert(id, "some random string");
-//        if (user != null)
         return Response.ok().build();
-//        else
-//            return Response.status(Status.NOT_FOUND).build();
     }
 
 //    @RolesAllowed({"ADMIN"})

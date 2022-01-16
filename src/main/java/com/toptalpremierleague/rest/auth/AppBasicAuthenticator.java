@@ -1,30 +1,39 @@
 package com.toptalpremierleague.rest.auth;
 
+import com.toptalpremierleague.rest.dao.UserDao;
+import com.toptalpremierleague.rest.representations.User;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.basic.BasicCredentials;
 
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
+import org.eclipse.jetty.util.security.Credential;
 
-public class AppBasicAuthenticator implements Authenticator<BasicCredentials, AppUser>
-{
-    private static final Map<String, Set<String>> VALID_USERS = ImmutableMap.of(
-            "guest", ImmutableSet.of(),
-            "user", ImmutableSet.of("USER"),
-            "admin", ImmutableSet.of("ADMIN", "USER")
-    );
+public class AppBasicAuthenticator implements Authenticator<BasicCredentials, User> {
+
+    private final UserDao userDAO;
+
+    public AppBasicAuthenticator(UserDao userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
-    public Optional<AppUser> authenticate(BasicCredentials credentials) throws AuthenticationException
-    {
-        if (VALID_USERS.containsKey(credentials.getUsername()) && "password".equals(credentials.getPassword()))
+    public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException {
+        List<User> users = userDAO.findUserByEmail(credentials.getUsername());
+        System.out.println(credentials.getUsername());
+        System.out.println(credentials.getPassword());
+        if(users.size() == 0) {
+            return Optional.empty();
+        }
+
+        User user = users.get(0);
+        String myHash = Credential.MD5.digest(credentials.getPassword());
+        System.out.println("MyHash " + myHash);
+        if (user != null && user.getSalt().equals(myHash))
         {
-            return Optional.of(new AppUser(credentials.getUsername(), VALID_USERS.get(credentials.getUsername())));
+            return Optional.of(user);
         }
         return Optional.empty();
     }

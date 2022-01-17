@@ -1,17 +1,12 @@
 package com.toptalpremierleague.rest.service;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.toptalpremierleague.rest.dao.TimezoneDao;
 import com.toptalpremierleague.rest.dao.UserTimezoneDao;
 import com.toptalpremierleague.rest.representations.Timezone;
-import one.util.streamex.EntryStream;
-import one.util.streamex.StreamEx;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.time.ZoneId;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -27,8 +22,19 @@ public final class TimezoneService {
 //        userTimezoneDao.createTable();
     }
 
+    public void populateTimezones() {
+        ZoneId.getAvailableZoneIds().forEach(timezoneId -> {
+            TimeZone timeZone = TimeZone.getTimeZone(timezoneId);
+            timezoneDao.insert(timeZone.getDisplayName(), timezoneId, timeZone.getRawOffset());
+        });
+    }
+
     public Map<String, Set<Timezone>> getAllTimezonesForAllUsers(Set<String> userEmails) {
         return userEmails.stream().collect(Collectors.toMap(Function.identity(), this::getAllTimezones));
+    }
+
+    public Set<Timezone> getAllTimezones() {
+        return timezoneDao.getAllTimezones();
     }
 
     public Set<Timezone> getAllTimezones(String userEmail) {
@@ -37,17 +43,20 @@ public final class TimezoneService {
         return timezoneDao.getTimezones(timezoneIds);
     }
 
-    public void createTimezone(Timezone timezone, String userEmail) {
-        int timezoneId = timezoneDao.insert(timezone.getName(), timezone.getCity(), timezone.getGmt_difference());
-        userTimezoneDao.insert(userEmail, timezoneId);
+    public void createTimezone(int timezoneId, String name, String userEmailId) {
+        Set<Timezone> timezones = timezoneDao.getTimezones(ImmutableSet.of(timezoneId));
+        if(timezones.isEmpty()) {
+            throw new RuntimeException("Timezone not found");
+        }
+        userTimezoneDao.insert(userEmailId, name, timezoneId);
     }
 
-    public void updateTimezone(Timezone timezone, String userEmail) {
-        Set<Integer> userTimezoneIds = userTimezoneDao.getUserTimezones(userEmail);
-        if(!userTimezoneIds.contains(timezone.getId())) {
+    public void updateTimezone(int timezoneId, String name, String userEmailId) {
+        Set<Integer> userTimezoneIds = userTimezoneDao.getUserTimezones(userEmailId);
+        if(!userTimezoneIds.contains(timezoneId)) {
             throw new RuntimeException("Timezone not found for this user");
         }
-        timezoneDao.update(timezone.getId(), timezone.getName(), timezone.getCity(), timezone.getGmt_difference());
+        userTimezoneDao.update(timezoneId, userEmailId, name);
     }
 
     public void deleteTimezone(int timezoneId, String userEmail) {
@@ -55,7 +64,6 @@ public final class TimezoneService {
         if(!userTimezoneIds.contains(timezoneId)) {
             throw new RuntimeException("Timezone not found for this user");
         }
-        timezoneDao.delete(timezoneId);
         userTimezoneDao.delete(userEmail, timezoneId);
     }
 }

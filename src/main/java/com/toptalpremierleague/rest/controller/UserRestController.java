@@ -12,6 +12,8 @@ import com.toptalpremierleague.rest.service.UserService;
 import io.dropwizard.auth.Auth;
 import org.eclipse.jetty.util.security.Credential;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,11 +21,9 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserRestController {
 
-    private final Validator validator;
     private final UserService userService;
 
-    public UserRestController(Validator validator, UserService userService) {
-        this.validator = validator;
+    public UserRestController(UserService userService) {
         this.userService = userService;
     }
 
@@ -47,55 +47,4 @@ public class UserRestController {
         userService.createUser(user);
         return Response.ok().build();
     }
-
-//    @PUT
-//    @Path("/{id}")
-//    public Response updateUserById(@PathParam("id") Integer id, User user) {
-//        // validation
-//        Set<ConstraintViolation<User>> violations = validator.validate(user);
-//        User e = UserDB.getUser(user.getId());
-//        if (violations.size() > 0) {
-//            ArrayList<String> validationMessages = new ArrayList<String>();
-//            for (ConstraintViolation<User> violation : violations) {
-//                validationMessages.add(violation.getPropertyPath().toString() + ": " + violation.getMessage());
-//            }
-//            return Response.status(Status.BAD_REQUEST).entity(validationMessages).build();
-//        }
-//        if (e != null) {
-//            user.setId(id);
-//            UserDB.updateUser(id, user);
-//            return Response.ok(user).build();
-//        } else
-//            return Response.status(Status.NOT_FOUND).build();
-//    }
-//
-//    @PUT
-//    @Path("/{id}")
-//    public Response createUserTimezoneId(@PathParam("id") Integer id, String timezoneId) {
-//        User user = UserDB.getUser(id);
-//        Set<String> existingTimezoneIds = UserTimezoneDb.getAllTimezones(id);
-//        if (existingTimezoneIds.contains(timezoneId)) {
-//            String validationMessage = "Timezone already associated";
-//            return Response.status(Status.BAD_REQUEST).entity(validationMessage).build();
-//        } else if (!UserTimezone.getAllTimezoneIds().contains(timezoneId)) {
-//            String validationMessage = "Invalid timezone id";
-//            return Response.status(Status.BAD_REQUEST).entity(validationMessage).build();
-//        }
-//        if (user != null) {
-//            UserTimezoneDb.setAllTimezones(id, ImmutableSet.of(timezoneId));
-//            return Response.ok().build();
-//        } else
-//            return Response.status(Status.NOT_FOUND).build();
-//    }
-//
-//    @DELETE
-//    @Path("/{id}")
-//    public Response removeUserTimezoneId(@PathParam("id") Integer id, String timezoneId) {
-//        User user = UserDB.getUser(id);
-//        if (user != null) {
-//            UserDB.removeUser(id);
-//            return Response.ok().build();
-//        } else
-//            return Response.status(Status.NOT_FOUND).build();
-//    }
 }

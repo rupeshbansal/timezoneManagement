@@ -1,12 +1,10 @@
 package com.toptalpremierleague.rest.service;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.toptalpremierleague.rest.dao.UserDao;
 import com.toptalpremierleague.rest.representations.User;
 import org.eclipse.jetty.util.security.Credential;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 

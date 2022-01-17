@@ -1,21 +1,13 @@
 package com.toptalpremierleague.rest.representations;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-import javax.validation.constraints.Pattern;
-import java.security.Principal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 public class Timezone {
-    @NotBlank
     private int id;
 
     private String name;
@@ -62,6 +54,12 @@ public class Timezone {
 
     public Timezone(int id, String name, String city, int gmt_difference) {
         this.id = id;
+        this.city = city;
+        this.name = name;
+        this.gmt_difference = gmt_difference;
+    }
+
+    public Timezone(String name, String city, int gmt_difference) {
         this.city = city;
         this.name = name;
         this.gmt_difference = gmt_difference;

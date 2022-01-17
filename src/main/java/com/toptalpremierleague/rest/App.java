@@ -20,12 +20,8 @@ import io.dropwizard.setup.Environment;
 
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.jdbi.v3.core.Jdbi;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class App extends Application<HelloWorldConfiguration> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-
     @Override
     public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
     }
@@ -50,7 +46,7 @@ public class App extends Application<HelloWorldConfiguration> {
         e.jersey().register(RolesAllowedDynamicFeature.class);
         e.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
         e.jersey().register(userDao);
-        e.jersey().register(new UserRestController(e.getValidator(), userDao, userService));
+        e.jersey().register(new UserRestController(userService));
         e.jersey().register(new TimezoneRestController(timezoneService, userService));
     }
 

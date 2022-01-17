@@ -1,16 +1,14 @@
+/Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/representations/api/UserTimezoneApi.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/App.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/controller/TimezoneRestController.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/HelloWorldConfiguration.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/representations/Timezone.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/service/UserService.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/auth/AppAuthorizer.java
-/Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/representations/PreUserTimezone.java
-/Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/auth/AppUser.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/dao/UserDao.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/service/TimezoneService.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/dao/UserTimezoneDao.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/controller/UserRestController.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/representations/User.java
-/Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/representations/UserTimezone.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/dao/TimezoneDao.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/auth/AppBasicAuthenticator.java

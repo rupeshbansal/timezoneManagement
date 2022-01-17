@@ -19,13 +19,11 @@ public interface TimezoneDao {
     @GetGeneratedKeys
     int insert(@Bind("name") String name, @Bind("city") String city, @Bind("gmt_difference") int gmt_difference);
 
-    @SqlUpdate("update timezones set name = :name, city = :city, gmt_difference = :gmt_difference where id = :id")
-    void update(@Bind("id") int id, @Bind("name") String name, @Bind("city") String city, @Bind("gmt_difference") int gmt_difference);
-
-    @SqlUpdate("delete from timezones where id = :id")
-    void delete(@Bind("id") int id);
-
     @SqlQuery("select * from timezones where id = any(:timezoneIds)")
     @UseRowMapper(Timezone.TimezoneMapper.class)
     Set<Timezone> getTimezones(@Bind("timezoneIds") Set<Integer> timezoneIds);
+
+    @SqlQuery("select * from timezones")
+    @UseRowMapper(Timezone.TimezoneMapper.class)
+    Set<Timezone> getAllTimezones();
 }

@@ -7,13 +7,6 @@ import io.dropwizard.db.DataSourceFactory;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 public class HelloWorldConfiguration extends Configuration {
-
-    @NotNull
-    private String host;
-
-    @NotNull
-    private String port;
-
     @Valid
     @NotNull
     private DataSourceFactory database = new DataSourceFactory();
@@ -26,15 +19,5 @@ public class HelloWorldConfiguration extends Configuration {
     @JsonProperty("database")
     public DataSourceFactory getDataSourceFactory() {
         return database;
-    }
-
-    @JsonProperty
-    public String getHost() {
-        return host;
-    }
-
-    @JsonProperty
-    public String getPort() {
-        return port;
     }
 }

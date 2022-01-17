@@ -7,7 +7,6 @@ import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.basic.BasicCredentials;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 

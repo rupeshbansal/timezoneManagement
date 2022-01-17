@@ -10,7 +10,7 @@ import org.jdbi.v3.sqlobject.transaction.Transaction;
 import java.util.Optional;
 import java.util.Set;
 
-public final class UserService {
+public class UserService {
     private final UserDao userDao;
     private final UserTimezoneDao userTimezoneDao;
     private final UserValidator userValidator;

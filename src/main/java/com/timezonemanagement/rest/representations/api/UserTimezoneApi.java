@@ -51,4 +51,11 @@ public final class UserTimezoneApi {
     }
 
     private Optional<String> userEmailId = Optional.empty();
+
+    public UserTimezoneApi(Integer id, Integer timezoneId, String name, Optional<String> userEmailId) {
+        this.id = id;
+        this.timezoneId = timezoneId;
+        this.name = name;
+        this.userEmailId = userEmailId;
+    }
 }

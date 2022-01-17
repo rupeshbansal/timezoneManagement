@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Optional;
 
-public final class UserTimezone {
+public class UserTimezone {
     private final int id;
     private final int timezoneId;
     private final String name;

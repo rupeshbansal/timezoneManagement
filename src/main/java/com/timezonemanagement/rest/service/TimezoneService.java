@@ -15,7 +15,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public final class TimezoneService {
+public class TimezoneService {
     private final TimezoneDao timezoneDao;
     private final UserTimezoneDao userTimezoneDao;
     private final UserValidator userValidator;

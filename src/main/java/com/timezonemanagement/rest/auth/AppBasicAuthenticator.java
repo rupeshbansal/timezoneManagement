@@ -3,7 +3,6 @@ package com.timezonemanagement.rest.auth;
 import com.google.common.collect.Iterables;
 import com.timezonemanagement.rest.dao.UserDao;
 import com.timezonemanagement.rest.representations.User;
-import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.basic.BasicCredentials;
 
@@ -21,9 +20,9 @@ public class AppBasicAuthenticator implements Authenticator<BasicCredentials, Us
     }
 
     @Override
-    public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException {
+    public Optional<User> authenticate(BasicCredentials credentials) {
         Set<User> users = userDAO.findUserByEmail(credentials.getUsername());
-        if(users.size() == 0) {
+        if(users.isEmpty()) {
             return Optional.empty();
         }
 

@@ -1,4 +1,5 @@
 com/timezonemanagement/rest/representations/User$UserMapper.class
+com/timezonemanagement/rest/representations/UserTimezone$UserTimezoneMapper.class
 com/timezonemanagement/rest/representations/api/UserApi.class
 com/timezonemanagement/rest/representations/User.class
 com/timezonemanagement/rest/representations/api/UserTimezoneApi.class
@@ -8,6 +9,7 @@ com/timezonemanagement/rest/dao/UserDao.class
 com/timezonemanagement/rest/auth/AppAuthorizer.class
 com/timezonemanagement/rest/dao/TimezoneDao.class
 com/timezonemanagement/rest/controller/TimezoneRestController.class
+com/timezonemanagement/rest/representations/UserTimezone.class
 com/timezonemanagement/rest/HelloWorldConfiguration.class
 com/timezonemanagement/rest/dao/UserTimezoneDao.class
 com/timezonemanagement/rest/controller/UserRestController.class

@@ -1,5 +1,6 @@
 package com.timezonemanagement.rest.service;
 
+import com.timezonemanagement.rest.representations.UserTimezone;
 import com.timezonemanagement.rest.validator.TimezoneValidator;
 import com.timezonemanagement.rest.validator.UserValidator;
 import com.timezonemanagement.rest.dao.TimezoneDao;
@@ -7,6 +8,8 @@ import com.timezonemanagement.rest.dao.UserTimezoneDao;
 import com.timezonemanagement.rest.representations.Timezone;
 import org.jdbi.v3.sqlobject.transaction.Transaction;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.ZoneId;
 import java.util.*;
 import java.util.function.Function;
@@ -32,40 +35,38 @@ public final class TimezoneService {
         });
     }
 
-    public Map<String, Set<Timezone>> getAllTimezonesForAllUsers(Set<String> userEmails) {
-        return userEmails.stream().collect(Collectors.toMap(Function.identity(), this::getAllTimezones));
+    public Map<String, Set<UserTimezone>> getAllTimezonesForAllUsers(Set<String> userEmails) {
+        return userEmails.stream().collect(Collectors.toMap(Function.identity(), this::getAllUserTimezones));
     }
 
     public Set<Timezone> getAllTimezones() {
         return timezoneDao.getAllTimezones();
     }
 
-    public Set<Timezone> getAllTimezones(String userEmail) {
-        Set<Integer> timezoneIds = userTimezoneDao.getUserTimezones(userEmail);
-        return timezoneDao.getTimezones(timezoneIds);
+    public Set<UserTimezone> getAllUserTimezones(String userEmail) {
+        return userTimezoneDao.getUserTimezones(userEmail);
     }
 
     @Transaction
-    public void createTimezone(int timezoneId, String name, String userEmailId) {
+    public int createTimezone(int timezoneId, String name, String userEmailId) {
         userValidator.validateUserExistence(userEmailId);
         timezoneValidator.validateTimezoneExists(timezoneId);
-        timezoneValidator.validateUserNotAssociatedWithTimezone(userEmailId, timezoneId);
-        userTimezoneDao.insert(userEmailId, name, timezoneId);
+        return userTimezoneDao.insert(userEmailId, name, timezoneId);
     }
 
     @Transaction
-    public void updateTimezone(int timezoneId, String name, String userEmailId) {
+    public void updateTimezone(int userTimezoneId, int timezoneId, String name, String userEmailId) {
         userValidator.validateUserExistence(userEmailId);
         timezoneValidator.validateTimezoneExists(timezoneId);
-        timezoneValidator.validateUserAssociatedWithTimezone(userEmailId, timezoneId);
-        userTimezoneDao.update(timezoneId, userEmailId, name);
+        timezoneValidator.validateUserAssociatedWithTimezone(userTimezoneId, userEmailId);
+        userTimezoneDao.update(userTimezoneId, timezoneId, name, Timestamp.from(Instant.now()));
     }
 
     @Transaction
-    public void deleteTimezone(int timezoneId, String userEmailId) {
+    public void deleteTimezone(int userTimezoneId, int timezoneId, String userEmailId) {
         userValidator.validateUserExistence(userEmailId);
         timezoneValidator.validateTimezoneExists(timezoneId);
-        timezoneValidator.validateUserAssociatedWithTimezone(userEmailId, timezoneId);
-        userTimezoneDao.delete(userEmailId, timezoneId);
+        timezoneValidator.validateUserAssociatedWithTimezone(userTimezoneId, userEmailId);
+        userTimezoneDao.delete(userTimezoneId);
     }
 }

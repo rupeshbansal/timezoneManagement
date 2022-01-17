@@ -25,6 +25,16 @@ public final class UserTimezoneApi {
         this.name = name;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    private Integer id;
+
     @NotNull
     private Integer timezoneId;
 

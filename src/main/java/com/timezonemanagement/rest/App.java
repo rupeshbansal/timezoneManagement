@@ -69,10 +69,10 @@ public class App extends Application<HelloWorldConfiguration> {
             timezoneDao.createTable();
             userTimezoneDao.createUserTimezonesTable();
 
-            userDao.insert(configuration.getAdminUsername(), "Admin", "Admin", Credential.MD5.digest(configuration.getPassword()));
+            userDao.insertUserAsAdmin(configuration.getAdminUsername(), "Admin", "Admin", Credential.MD5.digest(configuration.getPassword()), Boolean.TRUE);
             timezoneService.populateTimezones();
         } catch (Exception e) {
-            logger.warn("Failed to initialize the application. Its probably already initialized");
+            logger.warn("Failed to initialize the application. Its probably already initialized", e);
         }
     }
 

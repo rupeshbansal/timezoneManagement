@@ -39,6 +39,7 @@ public class UserRestController {
         if (userService.getUserByEmailId(user.getEmail()).isPresent()) {
             return Response.status(409).entity("User already exists").build();
         }
+        // TODO: remove
         System.out.println(user.getEmail() + " " + user.getPassword());
         userService.createUser(user.toUser());
         return Response.ok().build();

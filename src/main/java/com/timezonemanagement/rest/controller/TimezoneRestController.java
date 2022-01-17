@@ -54,14 +54,17 @@ public class TimezoneRestController {
      */
     @RolesAllowed({"ADMIN"})
     @POST
-    @Path("/createAdminUserTimezone")
-    public Response createAdminUserTimezone(@Valid @NotNull UserTimezoneApi userTimezoneApi, @Auth User user) {
+    @Path("/createUserTimezoneAsAdmin")
+    public Response createUserTimezoneAsAdmin(@Valid @NotNull UserTimezoneApi userTimezoneApi, @Auth User user) {
         try {
+            if (userTimezoneApi.getId() != null) {
+                return Response.status(400).entity("ID is required").build();
+            }
+
             if (!userTimezoneApi.getUserEmailId().isPresent()) {
                 return Response.status(404).entity("User Not Found").build();
             }
-            timezoneService.createTimezone(userTimezoneApi.getTimezoneId(), userTimezoneApi.getName(), userTimezoneApi.getUserEmailId().get());
-            return Response.ok().build();
+            return Response.ok(timezoneService.createTimezone(userTimezoneApi.getTimezoneId(), userTimezoneApi.getName(), userTimezoneApi.getUserEmailId().get())).build();
         } catch (RuntimeException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getLocalizedMessage()).build();
         }
@@ -72,13 +75,17 @@ public class TimezoneRestController {
      */
     @RolesAllowed({"ADMIN"})
     @POST
-    @Path("/updateAdminUserTimezone")
-    public Response updateAdminUserTimezone(@Valid @NotNull UserTimezoneApi userTimezoneApi, @Auth User user) {
+    @Path("/updateUserTimezoneAsAdmin")
+    public Response updateUserTimezoneAsAdmin(@Valid @NotNull UserTimezoneApi userTimezoneApi, @Auth User user) {
         try {
+            if (userTimezoneApi.getId() == null) {
+                return Response.status(400).entity("ID is required").build();
+            }
+
             if (!userTimezoneApi.getUserEmailId().isPresent()) {
                 return Response.status(404).entity("User Not Found").build();
             }
-            timezoneService.updateTimezone(userTimezoneApi.getTimezoneId(), userTimezoneApi.getName(), userTimezoneApi.getUserEmailId().get());
+            timezoneService.updateTimezone(userTimezoneApi.getId(), userTimezoneApi.getTimezoneId(), userTimezoneApi.getName(), userTimezoneApi.getUserEmailId().get());
             return Response.ok().build();
         } catch (RuntimeException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getLocalizedMessage()).build();
@@ -88,15 +95,22 @@ public class TimezoneRestController {
     /**
      * An endpoint to delete an associated timezone for a specified user. Only admin users can access this
      */
+    // TODO: deleteTimezoneAsAdmin
+    // TODO: Functional/unit tests
+    // TODO: Admin to crud on users
     @RolesAllowed({"ADMIN"})
     @DELETE
-    @Path("/deleteAdminUserTimezone")
-    public Response deleteAdminUserTimezone(@Valid @NotNull UserTimezoneApi userTimezoneApi, @Auth User user) {
+    @Path("/deleteUserTimezoneAsAdmin")
+    public Response deleteUserTimezoneAsAdmin(@Valid @NotNull UserTimezoneApi userTimezoneApi, @Auth User user) {
         try {
+            if (userTimezoneApi.getId() == null) {
+                return Response.status(400).entity("ID is required").build();
+            }
+
             if (!userTimezoneApi.getUserEmailId().isPresent()) {
                 return Response.status(404).entity("User Not Found").build();
             }
-            timezoneService.deleteTimezone(userTimezoneApi.getTimezoneId(), userTimezoneApi.getUserEmailId().get());
+            timezoneService.deleteTimezone(userTimezoneApi.getId(), userTimezoneApi.getTimezoneId(), userTimezoneApi.getUserEmailId().get());
             return Response.ok().build();
         } catch (RuntimeException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getLocalizedMessage()).build();
@@ -109,7 +123,7 @@ public class TimezoneRestController {
     @PermitAll
     @GET
     public Response getAllTimezones(@Auth User user) {
-        return Response.ok(timezoneService.getAllTimezones(user.getEmail())).build();
+        return Response.ok(timezoneService.getAllUserTimezones(user.getEmail())).build();
     }
 
     /**
@@ -120,11 +134,14 @@ public class TimezoneRestController {
     @Path("/createTimezone")
     public Response createTimezone(@Valid @NotNull UserTimezoneApi userTimezoneApi, @Auth User user) {
         try {
+            if (userTimezoneApi.getId() != null) {
+                return Response.status(400).entity("The id is auto-generated. Please do not send it").build();
+            }
+
             if (userTimezoneApi.getUserEmailId().isPresent()) {
                 return Response.status(401).entity("Not authorized").build();
             }
-            timezoneService.createTimezone(userTimezoneApi.getTimezoneId(), userTimezoneApi.getName(), user.getEmail());
-            return Response.ok().build();
+            return Response.ok(timezoneService.createTimezone(userTimezoneApi.getTimezoneId(), userTimezoneApi.getName(), user.getEmail())).build();
         } catch (RuntimeException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getLocalizedMessage()).build();
         }
@@ -138,10 +155,14 @@ public class TimezoneRestController {
     @Path("/updateTimezone")
     public Response updateTimezone(@Valid @NotNull UserTimezoneApi userTimezoneApi, @Auth User user) {
         try {
+            if (userTimezoneApi.getId() == null) {
+                return Response.status(400).entity("ID is required").build();
+            }
+
             if (userTimezoneApi.getUserEmailId().isPresent()) {
                 return Response.status(401).entity("Not authorized").build();
             }
-            timezoneService.updateTimezone(userTimezoneApi.getTimezoneId(), userTimezoneApi.getName(), user.getEmail());
+            timezoneService.updateTimezone(userTimezoneApi.getId(), userTimezoneApi.getTimezoneId(), userTimezoneApi.getName(), user.getEmail());
             return Response.ok().build();
         } catch (RuntimeException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getLocalizedMessage()).build();
@@ -153,10 +174,14 @@ public class TimezoneRestController {
      */
     @PermitAll
     @DELETE
-    @Path("/deleteTimezone/{timezoneId}")
-    public Response deleteTimezone(@PathParam("timezoneId") int timezoneId, @Auth User user) {
+    @Path("/deleteTimezone")
+    public Response deleteTimezone(@Valid @NotNull UserTimezoneApi userTimezoneApi, @Auth User user) {
         try {
-            timezoneService.deleteTimezone(timezoneId, user.getEmail());
+            if (userTimezoneApi.getId() == null) {
+                return Response.status(400).entity("ID is required").build();
+            }
+
+            timezoneService.deleteTimezone(userTimezoneApi.getId(), userTimezoneApi.getTimezoneId(), user.getEmail());
             return Response.ok().build();
         } catch (RuntimeException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getLocalizedMessage()).build();

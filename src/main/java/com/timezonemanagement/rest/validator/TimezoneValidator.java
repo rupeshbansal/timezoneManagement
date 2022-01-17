@@ -24,16 +24,9 @@ public final class TimezoneValidator {
         }
     }
 
-    public void validateUserNotAssociatedWithTimezone(String userEmailId, int timezoneId) {
-        Set<Integer> timezoneIds = userTimezoneDao.getUserTimezones(userEmailId);
-        if(timezoneIds.contains(timezoneId)) {
-            throw new RuntimeException("User is already associated with this timezone");
-        }
-    }
-
-    public void validateUserAssociatedWithTimezone(String userEmailId, int timezoneId) {
-        Set<Integer> timezoneIds = userTimezoneDao.getUserTimezones(userEmailId);
-        if(!timezoneIds.contains(timezoneId)) {
+    public void validateUserAssociatedWithTimezone(int userTimezoneId, String userEmailId) {
+        String dbUserEmailId = userTimezoneDao.getEmailIdFromUserTimezoneId(userTimezoneId);
+        if (dbUserEmailId == null || !dbUserEmailId.equals(userEmailId)) {
             throw new RuntimeException("User is not associated with this timezone");
         }
     }

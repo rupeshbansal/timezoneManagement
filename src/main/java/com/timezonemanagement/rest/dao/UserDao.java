@@ -15,6 +15,9 @@ public interface UserDao {
     @SqlUpdate("insert into users (email, first_name, last_name, salt) values (:email, :first_name, :last_name, :salt)")
     void insert(@Bind("email") String email, @Bind("first_name") String first_name, @Bind("last_name") String last_name, @Bind("salt") String salt);
 
+    @SqlUpdate("insert into users (email, first_name, last_name, salt, is_admin) values (:email, :first_name, :last_name, :salt, :is_admin)")
+    void insertUserAsAdmin(@Bind("email") String email, @Bind("first_name") String first_name, @Bind("last_name") String last_name, @Bind("salt") String salt, @Bind("is_admin") boolean is_admin);
+
     @SqlQuery("select * from users where email = :email")
     @UseRowMapper(User.UserMapper.class)
     Set<User> findUserByEmail(@Bind("email") String email);

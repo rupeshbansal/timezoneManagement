@@ -1,56 +1,20 @@
 Timezone Management Application
 =========================
 
-A simple todo list sample application implemented using dropwizad
-as the core framework with a simple UI that consumes the REST API
-based on twitter bootstrap, backbone.js, jquery, jasmine and require.js.
-
-It uses jasmine-maven-plugin to integrate the UI in the maven build.
-
-**Our focus is on**: project structure, code quality, testing, deployment
-
-Specification - DRAFT 1 -
-------------------------
-
-The service will be mounted on $BASE_URL. It will expose a simple *todos* resource that has the following API:
-
-* GET     /todos - will return the list of todos
-* POST    /todos - will create another todo and return an URL to the new resource
-
-* GET     /todos/{id}  - will get details about a single todo (including all items)
-* PUT     /todos/{id}  - will update the todo specified by {id}
-* DELETE  /todos/{id}  - will delete the todo specified by {id}
-
-A **todo** has the following information:
-  - id : assigned by server on creation (Read Only)
-  - created : assigned on creation (Read Only)
-  - email: owner email address
-  - items: list of items
-  
-A **todo item** has the following information:
-  - title: a text description of what need to be done
-  - created: date time assigned on creation
-  - finished: date time assigned when the item was finished
-
+A simple application for timezone management using Dropwizad
+as the core framework.
 
 How to run
 ----------
-  - clone: **git@github.com:bucharest-jug/dropwizard-todo.git && cd dropwizard-todo**
-  - build the project with **$ mvn clean install**  
-  - run it: **java -jar todo-service/target/todo-service-1.0.0-SNAPSHOT.jar server todo.sample.yml**
-  - goto the view: http://localhost:8080
+- clone: **https://git.toptal.com/screening/Rupesh-Bansal-2.git && cd Rupesh-Bansal-2**
+- build the project with **$ mvn clean install**
+- run it: **java -jar target/DropWizardExample-1.0-SNAPSHOT.jar server config.yml**
+- goto the view: http://localhost:8080
 
-Links
------
+Postman Collection: https://www.getpostman.com/collections/89f7fea6fcf717851768
 
-* http://dropwizard.codahale.com/
-* http://twitter.github.com/bootstrap/
-* https://jasmine.github.io/ 
-* https://github.com/searls/jasmine-maven-plugin
-* http://requirejs.org/
+Admin User Credentials:
+- Username: admin@timezonemanagement.com
+- Password: Admin@1234
 
-Pics
-----
-  ![New todo](http://bucharest-jug.github.com/dropwizard-todo/images/todo-new.png)
-  ![Todo List](http://bucharest-jug.github.com/dropwizard-todo/images/todo-index.png)
 

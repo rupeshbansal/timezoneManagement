@@ -1,6 +1,6 @@
-package com.toptalpremierleague.rest.auth;
+package com.timezonemanagement.rest.auth;
 
-import com.toptalpremierleague.rest.representations.User;
+import com.timezonemanagement.rest.representations.User;
 import io.dropwizard.auth.Authorizer;
 
 public class AppAuthorizer implements Authorizer<User>

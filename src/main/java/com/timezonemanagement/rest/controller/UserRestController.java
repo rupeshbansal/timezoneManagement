@@ -1,20 +1,16 @@
-package com.toptalpremierleague.rest.controller;
+package com.timezonemanagement.rest.controller;
 
 import javax.annotation.security.PermitAll;
-import javax.validation.Validator;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.toptalpremierleague.rest.dao.UserDao;
-import com.toptalpremierleague.rest.representations.User;
-import com.toptalpremierleague.rest.service.UserService;
-import io.dropwizard.auth.Auth;
-import org.eclipse.jetty.util.security.Credential;
+import com.timezonemanagement.rest.representations.User;
+import com.timezonemanagement.rest.representations.api.UserApi;
+import com.timezonemanagement.rest.service.UserService;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Path("/users")
@@ -37,14 +33,14 @@ public class UserRestController {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-
     @POST
     @Path("/createUser")
-    public Response createUser(User user) {
+    public Response createUser(@Valid @NotNull UserApi user) {
         if (userService.getUserByEmailId(user.getEmail()).isPresent()) {
-            return Response.status(409, "User already exists").build();
+            return Response.status(409).entity("User already exists").build();
         }
-        userService.createUser(user);
+        System.out.println(user.getEmail() + " " + user.getPassword());
+        userService.createUser(user.toUser());
         return Response.ok().build();
     }
 }

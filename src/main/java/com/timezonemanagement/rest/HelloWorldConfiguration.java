@@ -1,4 +1,4 @@
-package com.toptalpremierleague.rest;
+package com.timezonemanagement.rest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;

@@ -1,10 +1,10 @@
-package com.toptalpremierleague.rest.representations;
+package com.timezonemanagement.rest.representations;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
@@ -14,18 +14,21 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class User implements Principal{
-    @NotBlank
+    @NotNull
     @Length(min = 2, max = 255)
     @JsonProperty("first_name")
     private String firstName;
-    @NotBlank
+
+    @NotNull
     @Length(min = 2, max = 255)
     @JsonProperty("last_name")
     private String lastName;
+
+    @NotNull
     @Pattern(regexp = ".+@.+\\.[a-z]+")
     private String email;
 
-    @NotBlank
+    @NotNull
     @Length(min = 2, max = 255)
     private String salt;
 

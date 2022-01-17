@@ -1,4 +1,4 @@
-Todo list with Dropwizard
+Timezone Management Application
 =========================
 
 A simple todo list sample application implemented using dropwizad

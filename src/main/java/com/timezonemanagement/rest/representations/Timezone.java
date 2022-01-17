@@ -1,6 +1,5 @@
-package com.toptalpremierleague.rest.representations;
+package com.timezonemanagement.rest.representations;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 

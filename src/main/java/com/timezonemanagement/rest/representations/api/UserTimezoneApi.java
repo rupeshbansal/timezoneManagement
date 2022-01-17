@@ -1,5 +1,10 @@
-package com.toptalpremierleague.rest.representations.api;
+package com.timezonemanagement.rest.representations.api;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Optional;
 
 public final class UserTimezoneApi {
@@ -20,7 +25,11 @@ public final class UserTimezoneApi {
         this.name = name;
     }
 
-    private int timezoneId;
+    @NotNull
+    private Integer timezoneId;
+
+    @NotEmpty
+    @Length(min = 2, max = 255)
     private String name;
 
     public Optional<String> getUserEmailId() {

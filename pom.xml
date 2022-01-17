@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>toptal-premier-league</artifactId>
+    <artifactId>timezone-management</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -91,7 +91,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.toptalpremierleague.rest.App</mainClass>
+                                    <mainClass>com.timezonemanagement.rest.App</mainClass>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer">
                                 </transformer>

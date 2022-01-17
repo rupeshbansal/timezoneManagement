@@ -1,8 +1,8 @@
-package com.toptalpremierleague.rest.service;
+package com.timezonemanagement.rest.service;
 
 import com.google.common.collect.Iterables;
-import com.toptalpremierleague.rest.dao.UserDao;
-import com.toptalpremierleague.rest.representations.User;
+import com.timezonemanagement.rest.representations.User;
+import com.timezonemanagement.rest.dao.UserDao;
 import org.eclipse.jetty.util.security.Credential;
 
 import java.util.Optional;

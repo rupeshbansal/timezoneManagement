@@ -1,6 +1,6 @@
-package com.toptalpremierleague.rest.dao;
+package com.timezonemanagement.rest.dao;
 
-import com.toptalpremierleague.rest.representations.Timezone;
+import com.timezonemanagement.rest.representations.Timezone;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;

@@ -1,8 +1,8 @@
-package com.toptalpremierleague.rest.auth;
+package com.timezonemanagement.rest.auth;
 
 import com.google.common.collect.Iterables;
-import com.toptalpremierleague.rest.dao.UserDao;
-import com.toptalpremierleague.rest.representations.User;
+import com.timezonemanagement.rest.dao.UserDao;
+import com.timezonemanagement.rest.representations.User;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.basic.BasicCredentials;

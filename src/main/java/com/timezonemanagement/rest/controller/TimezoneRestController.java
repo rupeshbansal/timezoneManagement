@@ -26,14 +26,6 @@ public class TimezoneRestController {
         this.userService = userService;
     }
 
-//    @RolesAllowed({"ADMIN"})
-//    @GET
-//    @Path("/populateTimezones")
-//    public Response populateTimezones() {
-//        timezoneService.populateTimezones();
-//        return Response.ok().build();
-//    }
-
     /**
      * An endpoint to get all the timezones registered in the service. This is an exhaustive list of all the timezones that
      * the user can be associated with

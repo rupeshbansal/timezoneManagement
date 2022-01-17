@@ -20,7 +20,7 @@ public final class UserService {
     }
 
     public void createUser(User user) {
-        userDao.insert(user.getEmail(), user.getFirstName(), user.getLastName(), Credential.MD5.digest(user.getSalt()));
+        userDao.insert(user.getEmail(), user.getFirstName(), user.getLastName(), user.getSalt());
     }
 
     public Optional<User> getUserByEmailId(String emailId) {

@@ -13,8 +13,20 @@ How to run
 
 Postman Collection: https://www.getpostman.com/collections/89f7fea6fcf717851768
 
-Admin User Credentials:
+Credentials
+===========
+Admin User Login Credentials:
 - Username: admin@timezonemanagement.com
 - Password: Admin@1234
 
+Postgres Credentials
+- username: pguser2
+- password: iAMs00perSecrEET
+- database: dbprod
+
+Dependencies
+============
+1. Dropwizard
+2. Postgres
+3. Java 9+: https://www.azul.com/downloads/?package=jdk#download-openjdk
 

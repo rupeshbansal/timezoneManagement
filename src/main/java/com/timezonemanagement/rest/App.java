@@ -20,10 +20,15 @@ import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
+import org.eclipse.jetty.util.security.Credential;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.jdbi.v3.core.Jdbi;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class App extends Application<HelloWorldConfiguration> {
+    Logger logger = LoggerFactory.getLogger(App.class);
+
     @Override
     public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
     }
@@ -51,10 +56,24 @@ public class App extends Application<HelloWorldConfiguration> {
         e.jersey().register(userDao);
         e.jersey().register(new UserRestController(userService));
         e.jersey().register(new TimezoneRestController(timezoneService, userService));
+        bootstrapTableIfNotAlreadyPresent(c, userDao, timezoneDao, userTimezoneDao, timezoneService);
     }
 
     public static void main(String[] args) throws Exception {
         new App().run(args);
+    }
+
+    private void bootstrapTableIfNotAlreadyPresent(HelloWorldConfiguration configuration, UserDao userDao, TimezoneDao timezoneDao, UserTimezoneDao userTimezoneDao, TimezoneService timezoneService) {
+        try {
+            userDao.createUserTable();
+            timezoneDao.createTable();
+            userTimezoneDao.createUserTimezonesTable();
+
+            userDao.insert(configuration.getAdminUsername(), "Admin", "Admin", Credential.MD5.digest(configuration.getPassword()));
+            timezoneService.populateTimezones();
+        } catch (Exception e) {
+            logger.warn("Failed to initialize the application. Its probably already initialized");
+        }
     }
 
 }

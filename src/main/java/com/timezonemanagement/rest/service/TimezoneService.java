@@ -23,8 +23,6 @@ public final class TimezoneService {
         this.userTimezoneDao = userTimezoneDao;
         this.userValidator = userValidator;
         this.timezoneValidator = timezoneValidator;
-//      timezoneDao.createTable();
-//      userTimezoneDao.createTable();
     }
 
     public void populateTimezones() {

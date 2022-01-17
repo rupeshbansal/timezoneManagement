@@ -10,6 +10,13 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 public final class UserApi {
+    public UserApi(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+
     @NotEmpty
     @Valid
     @Length(min = 2, max = 255)

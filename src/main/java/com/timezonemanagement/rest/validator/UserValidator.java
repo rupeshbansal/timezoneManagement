@@ -14,4 +14,10 @@ public class UserValidator {
             throw new RuntimeException("No such user found");
         }
     }
+
+    public void validateUserNonExistence(String userEmailId) {
+        if(!userDao.findUserByEmail(userEmailId).isEmpty()) {
+            throw new RuntimeException("User already exists");
+        }
+    }
 }

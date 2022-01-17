@@ -29,6 +29,9 @@ public interface UserTimezoneDao {
     @SqlUpdate("delete from user_timezones where id = :id")
     void delete(@Bind("id") int id);
 
+    @SqlUpdate("delete from user_timezones where email = :emailId")
+    void deleteUserEntries(@Bind("emailId") String emailId);
+
     @SqlUpdate("update user_timezones set name = :name, timezone_id = :timezone_id, updated_at = :updated_at where id = :id")
     void update(@Bind("id") int id, @Bind("timezone_id") int timezone_id, @Bind("name") String name,  @Bind("updated_at") Timestamp updated_at);
 

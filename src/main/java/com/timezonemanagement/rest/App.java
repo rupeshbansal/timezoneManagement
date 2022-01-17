@@ -44,7 +44,7 @@ public class App extends Application<HelloWorldConfiguration> {
         final UserValidator userValidator = new UserValidator(userDao);
         final TimezoneValidator timezoneValidator = new TimezoneValidator(timezoneDao, userTimezoneDao);
         TimezoneService timezoneService = new TimezoneService(timezoneDao, userTimezoneDao, userValidator, timezoneValidator);
-        UserService userService = new UserService(userDao);
+        UserService userService = new UserService(userDao, userTimezoneDao, userValidator);
 
         e.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
                 .setAuthenticator(new AppBasicAuthenticator(userDao))

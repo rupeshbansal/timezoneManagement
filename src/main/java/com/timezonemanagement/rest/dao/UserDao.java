@@ -24,4 +24,7 @@ public interface UserDao {
 
     @SqlQuery("select email from users")
     Set<String> getAllUserEmailIds();
+
+    @SqlUpdate("delete from users where email = :email")
+    void deleteUser(@Bind("email") String email);
 }

@@ -1,6 +1,7 @@
 package com.timezonemanagement.rest.controller;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -10,6 +11,7 @@ import javax.ws.rs.core.Response;
 import com.timezonemanagement.rest.representations.User;
 import com.timezonemanagement.rest.representations.api.UserApi;
 import com.timezonemanagement.rest.service.UserService;
+import io.dropwizard.auth.Auth;
 
 import java.util.Optional;
 
@@ -36,12 +38,31 @@ public class UserRestController {
     @POST
     @Path("/createUser")
     public Response createUser(@Valid @NotNull UserApi user) {
-        if (userService.getUserByEmailId(user.getEmail()).isPresent()) {
-            return Response.status(409).entity("User already exists").build();
-        }
-        // TODO: remove
-        System.out.println(user.getEmail() + " " + user.getPassword());
         userService.createUser(user.toUser());
         return Response.ok().build();
+    }
+
+    @RolesAllowed({"ADMIN"})
+    @POST
+    @Path("/deleteUser")
+    public Response deleteUser(@QueryParam("userEmailId") String userEmailId, @Auth User user) {
+        try {
+            userService.deleteUser(userEmailId);
+            return Response.ok().build();
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getLocalizedMessage()).build();
+        }
+    }
+
+    @RolesAllowed({"ADMIN"})
+    @POST
+    @Path("/createUserAsAdmin")
+    public Response createUserAsAdmin(UserApi userApi, @Auth User user) {
+        try {
+            userService.createUserAsAdmin(userApi.toUser());
+            return Response.ok().build();
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getLocalizedMessage()).build();
+        }
     }
 }

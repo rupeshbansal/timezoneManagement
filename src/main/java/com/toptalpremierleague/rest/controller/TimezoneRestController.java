@@ -1,5 +1,6 @@
 package com.toptalpremierleague.rest.controller;
 
+import com.toptalpremierleague.rest.representations.PreUserTimezone;
 import com.toptalpremierleague.rest.representations.Timezone;
 import com.toptalpremierleague.rest.representations.User;
 import com.toptalpremierleague.rest.service.TimezoneService;
@@ -30,6 +31,31 @@ public class TimezoneRestController {
     public Response getAllUserTimezones(@Auth User user) {
         Set<String> userEmails = userService.getAllUserEmails();
         return Response.ok(timezoneService.getAllTimezonesForAllUsers(userEmails)).build();
+    }
+
+    @RolesAllowed({"ADMIN"})
+    @POST
+    @Path("/createAdminUserTimezone")
+    public Response createAdminUserTimezone(PreUserTimezone preUserTimezone, @Auth User user) {
+        timezoneService.createTimezone(preUserTimezone.getTimezone(), preUserTimezone.getEmailId());
+        return Response.ok().build();
+    }
+
+
+    @RolesAllowed({"ADMIN"})
+    @POST
+    @Path("/updateAdminUserTimezone")
+    public Response updateAdminUserTimezone(PreUserTimezone preUserTimezone, @Auth User user) {
+        timezoneService.updateTimezone(preUserTimezone.getTimezone(), preUserTimezone.getEmailId());
+        return Response.ok().build();
+    }
+
+    @RolesAllowed({"ADMIN"})
+    @DELETE
+    @Path("/deleteAdminUserTimezone")
+    public Response deleteAdminUserTimezone(PreUserTimezone preUserTimezone, @Auth User user) {
+        timezoneService.deleteTimezone(preUserTimezone.getTimezone().getId(), preUserTimezone.getEmailId());
+        return Response.ok().build();
     }
 
     @PermitAll

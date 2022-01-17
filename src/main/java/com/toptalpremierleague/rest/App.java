@@ -27,31 +27,21 @@ public class App extends Application<HelloWorldConfiguration> {
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
     @Override
-    public void initialize(Bootstrap<HelloWorldConfiguration> b) {
+    public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
     }
 
     @Override
     public void run(HelloWorldConfiguration c, Environment e) throws Exception {
-
-//        final Client client = new JerseyClientBuilder(e).build("DemoRESTClient");
-//        e.jersey().register(new RESTClientController(client));
-
-//        Application health check
-//        e.healthChecks().register("APIHealthCheck", new AppHealthCheck(client));
-
-//        Run multiple health checks
-//        e.jersey().register(new HealthCheckController(e.healthChecks()));
 
         final JdbiFactory factory = new JdbiFactory();
         final Jdbi jdbi = factory.build(e, c.getDataSourceFactory(), "postgresql");
         final UserDao userDao = jdbi.onDemand(UserDao.class);
         final TimezoneDao timezoneDao = jdbi.onDemand(TimezoneDao.class);
         final UserTimezoneDao userTimezoneDao = jdbi.onDemand(UserTimezoneDao.class);
+
         TimezoneService timezoneService = new TimezoneService(timezoneDao, userTimezoneDao);
         UserService userService = new UserService(userDao);
-//        final UserDao dao = jdbi.onDemand(UserDao.class);
-//        final UserDao dao = jdbi.onDemand(UserDao.class);
-        //****** Dropwizard security - custom classes ***********/
+
         e.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
                 .setAuthenticator(new AppBasicAuthenticator(userDao))
                 .setAuthorizer(new AppAuthorizer())
@@ -59,9 +49,8 @@ public class App extends Application<HelloWorldConfiguration> {
                 .buildAuthFilter()));
         e.jersey().register(RolesAllowedDynamicFeature.class);
         e.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
-
         e.jersey().register(userDao);
-        e.jersey().register(new UserRestController(e.getValidator(), userDao));
+        e.jersey().register(new UserRestController(e.getValidator(), userDao, userService));
         e.jersey().register(new TimezoneRestController(timezoneService, userService));
     }
 

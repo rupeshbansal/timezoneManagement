@@ -8,6 +8,9 @@ public class AppAuthorizer implements Authorizer<User>
     @Override
     public boolean authorize(User user, String role) {
         System.out.println("Expected role is " + role);
-        return user.getRoles() != null && user.getRoles().contains(role);
+        System.out.println("User is " + user.getIsAdmin());
+        System.out.println("User Email is " + user.getEmail());
+        System.out.println("User is " + user);
+        return true;
     }
 }

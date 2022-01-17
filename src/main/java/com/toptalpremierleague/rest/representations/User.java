@@ -106,11 +106,6 @@ public class User implements Principal{
     }
 
     @Override
-    public String toString() {
-        return "Emplyee [id=]";
-    }
-
-    @Override
     public String getName() {
         return email;
     }

@@ -12,6 +12,7 @@ com/toptalpremierleague/rest/auth/AppUser.class
 com/toptalpremierleague/rest/representations/Timezone.class
 com/toptalpremierleague/rest/dao/UserTimezoneDao.class
 com/toptalpremierleague/rest/representations/Timezone$TimezoneMapper.class
+com/toptalpremierleague/rest/representations/PreUserTimezone.class
 com/toptalpremierleague/rest/service/TimezoneService.class
 com/toptalpremierleague/rest/auth/AppAuthorizer.class
 com/toptalpremierleague/rest/HelloWorldConfiguration.class

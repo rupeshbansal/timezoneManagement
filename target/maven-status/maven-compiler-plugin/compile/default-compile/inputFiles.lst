@@ -4,6 +4,7 @@
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/representations/Timezone.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/service/UserService.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/auth/AppAuthorizer.java
+/Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/representations/PreUserTimezone.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/auth/AppUser.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/dao/UserDao.java
 /Users/rupeshbansal/IdeaProjects/toptal-premier-league/src/main/java/com/toptalpremierleague/rest/service/TimezoneService.java

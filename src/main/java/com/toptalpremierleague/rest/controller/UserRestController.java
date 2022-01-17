@@ -8,72 +8,45 @@ import javax.ws.rs.core.Response;
 
 import com.toptalpremierleague.rest.dao.UserDao;
 import com.toptalpremierleague.rest.representations.User;
+import com.toptalpremierleague.rest.service.UserService;
 import io.dropwizard.auth.Auth;
 import org.eclipse.jetty.util.security.Credential;
+
+import java.util.List;
+import java.util.Optional;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserRestController {
 
     private final Validator validator;
-    private final UserDao userDAO;
+    private final UserService userService;
 
-    public UserRestController(Validator validator, UserDao userDAO) {
+    public UserRestController(Validator validator, UserService userService) {
         this.validator = validator;
-        this.userDAO = userDAO;
+        this.userService = userService;
     }
 
-    @PermitAll
-    @GET
-    @Path("/{id}")
-    public Response getUsersById(@PathParam("id") Integer id, @Auth User user) {
-        return Response.ok().build();
-    }
-
-//    @RolesAllowed({"ADMIN"})
     @PermitAll
     @GET
     public Response getUser(@QueryParam("email") String email) {
-//        User user = UserDB.getUser(id);
-//        userDAO.createSomethingTable();
-//        userDAO.insert(id, "some random string");
-//        if (user != null)
-        return Response.ok(userDAO.findUserByEmail(email)).build();
-//        else
-//            return Response.status(Status.NOT_FOUND).build();
+        Optional<User> maybeUser = userService.getUserByEmailId(email);
+        if (maybeUser.isPresent()) {
+            return Response.ok(maybeUser.get()).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
 
     @POST
     @Path("/createUser")
     public Response createUser(User user) {
-        userDAO.insert(user.getEmail(), user.getFirstName(), user.getLastName(), Credential.MD5.digest(user.getSalt()));
-//        userDAO.createSomethingTable();
-//        if (user != null)
-        return Response.ok(userDAO.findUserByEmail(user.getEmail())).build();
-//        else
-//            return Response.status(Status.NOT_FOUND).build();
+        if (userService.getUserByEmailId(user.getEmail()).isPresent()) {
+            return Response.status(409, "User already exists").build();
+        }
+        userService.createUser(user);
+        return Response.ok().build();
     }
-
-//    @POST
-//    public Response createAppUser(User user) throws URISyntaxException {
-//        // validation
-//        Set<ConstraintViolation<User>> violations = validator.validate(user);
-//        User e = UserDB.getUser(user.getId());
-//        if (violations.size() > 0) {
-//            ArrayList<String> validationMessages = new ArrayList<String>();
-//            for (ConstraintViolation<User> violation : violations) {
-//                validationMessages.add(violation.getPropertyPath().toString() + ": " + violation.getMessage());
-//            }
-//            return Response.status(Status.BAD_REQUEST).entity(validationMessages).build();
-//        }
-//        if (e != null) {
-//            UserDB.updateUser(user.getId(), user);
-//            return Response.created(new URI("/employees/" + user.getId()))
-//                    .build();
-//        } else
-//            return Response.status(Status.NOT_FOUND).build();
-//    }
 
 //    @PUT
 //    @Path("/{id}")

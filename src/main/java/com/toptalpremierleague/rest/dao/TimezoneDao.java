@@ -2,13 +2,11 @@ package com.toptalpremierleague.rest.dao;
 
 import com.toptalpremierleague.rest.representations.Timezone;
 import org.jdbi.v3.sqlobject.customizer.Bind;
-import org.jdbi.v3.sqlobject.customizer.BindList;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jdbi.v3.sqlobject.statement.UseRowMapper;
 
-import java.util.List;
 import java.util.Set;
 
 
@@ -30,7 +28,4 @@ public interface TimezoneDao {
     @SqlQuery("select * from timezones where id = any(:timezoneIds)")
     @UseRowMapper(Timezone.TimezoneMapper.class)
     Set<Timezone> getTimezones(@Bind("timezoneIds") Set<Integer> timezoneIds);
-
-//    @SqlQuery("select id from foo where name in (<nameList>)")
-//    List<Integer> getIds(@BindIn("nameList") List<String> nameList);
 }

@@ -21,15 +21,18 @@ public class UserService {
         this.userValidator = userValidator;
     }
 
+    @Transaction
     public Set<String> getAllUserEmails() {
         return userDao.getAllUserEmailIds();
     }
 
+    @Transaction
     public void createUser(User user) {
         userValidator.validateUserNonExistence(user.getEmail());
         userDao.insert(user.getEmail(), user.getFirstName(), user.getLastName(), user.getSalt());
     }
 
+    @Transaction
     public void createUserAsAdmin(User user) {
         userValidator.validateUserNonExistence(user.getEmail());
         userDao.insertUserAsAdmin(user.getEmail(), user.getFirstName(), user.getLastName(), user.getSalt(), true);
@@ -42,6 +45,7 @@ public class UserService {
         userTimezoneDao.deleteUserEntries(userEmailId);
     }
 
+    @Transaction
     public Optional<User> getUserByEmailId(String emailId) {
         Set<User> users =  userDao.findUserByEmail(emailId);
         if(users.isEmpty()) return Optional.empty();

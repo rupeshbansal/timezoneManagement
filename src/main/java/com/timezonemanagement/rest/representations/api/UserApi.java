@@ -17,6 +17,10 @@ public final class UserApi {
         this.password = password;
     }
 
+    public UserApi() {
+
+    }
+
     @NotEmpty
     @Valid
     @Length(min = 2, max = 255)

@@ -58,4 +58,6 @@ public final class UserTimezoneApi {
         this.name = name;
         this.userEmailId = userEmailId;
     }
+
+    public UserTimezoneApi() {}
 }
